@@ -12,9 +12,9 @@ use OAuth2\ServerBundle\User\AdvancedOAuth2UserInterface;
 
 class UserCredentials implements UserCredentialsInterface
 {
-    private $em;
-    private $up;
-    private $encoderFactory;
+    protected $em;
+    protected $up;
+    protected $encoderFactory;
 
     public function __construct(EntityManager $entityManager, UserProviderInterface $userProvider, EncoderFactoryInterface $encoderFactory)
     {

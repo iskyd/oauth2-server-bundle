@@ -8,7 +8,7 @@ use OAuth2\ServerBundle\Entity\Client;
 
 class ClientCredentials implements ClientCredentialsInterface
 {
-    private $em;
+    protected $em;
 
     public function __construct(EntityManager $EntityManager)
     {

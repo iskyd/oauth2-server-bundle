@@ -7,12 +7,12 @@ use OAuth2\ServerBundle\Exception\ScopeNotFoundException;
 
 class ClientManager
 {
-    private $em;
+    protected $em;
 
     /**
      * @var ScopeManagerInterface
      */
-    private $sm;
+    protected $sm;
 
     public function __construct(EntityManager $entityManager, ScopeManagerInterface $scopeManager)
     {

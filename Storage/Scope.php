@@ -8,12 +8,12 @@ use Doctrine\ORM\EntityManager;
 
 class Scope implements ScopeInterface
 {
-    private $em;
+    protected $em;
 
     /**
      * @var ScopeManagerInterface
      */
-    private $sm;
+    protected $sm;
 
     public function __construct(EntityManager $entityManager, ScopeManagerInterface $scopeManager)
     {
