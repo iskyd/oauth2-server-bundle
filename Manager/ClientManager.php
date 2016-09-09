@@ -7,7 +7,7 @@ use OAuth2\ServerBundle\Exception\ScopeNotFoundException;
 
 class ClientManager
 {
-    private $em;
+    protected $em;
 
     /**
      * @var ScopeManagerInterface

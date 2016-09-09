@@ -8,7 +8,7 @@ use OAuth2\ServerBundle\Entity\Client;
 
 class AuthorizationCode implements AuthorizationCodeInterface
 {
-    private $em;
+    protected $em;
 
     public function __construct(EntityManager $EntityManager)
     {

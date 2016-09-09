@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 
 class ScopeManager implements ScopeManagerInterface
 {
-    private $em;
+    protected $em;
 
     public function __construct(EntityManager $entityManager)
     {

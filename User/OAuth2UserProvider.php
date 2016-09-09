@@ -11,8 +11,8 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 class OAuth2UserProvider implements UserProviderInterface
 {
-    private $em;
-    private $encoderFactory;
+    protected $em;
+    protected $encoderFactory;
 
     public function __construct(EntityManager $entityManager, EncoderFactoryInterface $encoderFactory)
     {

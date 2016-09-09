@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManager;
 
 class RefreshToken implements RefreshTokenInterface
 {
-    private $em;
+    protected $em;
 
     public function __construct(EntityManager $EntityManager)
     {
