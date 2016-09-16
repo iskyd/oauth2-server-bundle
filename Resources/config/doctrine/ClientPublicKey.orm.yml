@@ -1,6 +1,5 @@
 OAuth2\ServerBundle\Entity\ClientPublicKey:
-    type: entity
-    table: oauth_client_public_key
+    type: mappedSuperclass
     id:
         client_id:
             type:       string

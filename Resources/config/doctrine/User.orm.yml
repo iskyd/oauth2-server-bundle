@@ -1,6 +1,5 @@
 OAuth2\ServerBundle\Entity\User:
-    type: entity
-    table: oauth_user
+    type: mappedSuperclass
     id:
         username:
             type:       string
