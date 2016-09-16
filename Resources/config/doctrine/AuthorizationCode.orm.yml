@@ -1,6 +1,5 @@
 OAuth2\ServerBundle\Entity\AuthorizationCode:
-    type: entity
-    table: oauth_authorization_code
+    type: mappedSuperclass
     id:
         code:
             type:       string
