@@ -4,15 +4,20 @@ namespace OAuth2\ServerBundle\Storage;
 
 use OAuth2\Storage\AccessTokenInterface;
 use Doctrine\ORM\EntityManager;
-use OAuth2\ServerBundle\Entity\Client;
 
 class AccessToken implements AccessTokenInterface
 {
+    protected $clientClass;
+
+    /**
+     * @var EntityManager
+     */
     protected $em;
 
-    public function __construct(EntityManager $EntityManager)
+    public function __construct($clientClass, EntityManager $EntityManager)
     {
-        $this->em = $EntityManager;
+        $this->clientClass = $clientClass;
+        $this->em          = $EntityManager;
     }
 
     /**
@@ -72,7 +77,7 @@ class AccessToken implements AccessTokenInterface
     public function setAccessToken($oauth_token, $client_id, $user_id, $expires, $scope = null)
     {
         // Get Client Entity
-        $client = $this->em->getRepository('OAuth2ServerBundle:Client')->find($client_id);
+        $client = $this->em->getRepository($this->clientClass)->find($client_id);
 
         if (!$client) {
             return null;

@@ -4,15 +4,20 @@ namespace OAuth2\ServerBundle\Storage;
 
 use OAuth2\Storage\ClientCredentialsInterface;
 use Doctrine\ORM\EntityManager;
-use OAuth2\ServerBundle\Entity\Client;
 
 class ClientCredentials implements ClientCredentialsInterface
 {
+    protected $clientClass;
+
+    /**
+     * @var EntityManager
+     */
     protected $em;
 
-    public function __construct(EntityManager $EntityManager)
+    public function __construct($clientClass, EntityManager $EntityManager)
     {
-        $this->em = $EntityManager;
+        $this->clientClass = $clientClass;
+        $this->em          = $EntityManager;
     }
 
     /**
@@ -34,7 +39,7 @@ class ClientCredentials implements ClientCredentialsInterface
     public function checkClientCredentials($client_id, $client_secret = null)
     {
         // Get Client
-        $client = $this->em->getRepository('OAuth2ServerBundle:Client')->find($client_id);
+        $client = $this->em->getRepository($this->clientClass)->find($client_id);
 
         // If client exists check secret
         if ($client) {
@@ -70,7 +75,7 @@ class ClientCredentials implements ClientCredentialsInterface
     public function getClientDetails($client_id)
     {
         // Get Client
-        $client = $this->em->getRepository('OAuth2ServerBundle:Client')->find($client_id);
+        $client = $this->em->getRepository($this->clientClass)->find($client_id);
 
         if (!$client) {
             return false;
@@ -137,7 +142,7 @@ class ClientCredentials implements ClientCredentialsInterface
      */
     public function isPublicClient($client_id)
     {
-        $client = $this->em->getRepository('OAuth2ServerBundle:Client')->find($client_id);
+        $client = $this->em->getRepository($this->clientClass)->find($client_id);
 
         if (!$client) {
             return false;
@@ -157,7 +162,7 @@ class ClientCredentials implements ClientCredentialsInterface
     public function getClientScope($client_id)
     {
         // Get Client
-        $client = $this->em->getRepository('OAuth2ServerBundle:Client')->find($client_id);
+        $client = $this->em->getRepository($this->clientClass)->find($client_id);
 
         if (!$client) {
             return false;

@@ -8,17 +8,24 @@ use Doctrine\ORM\EntityManager;
 
 class Scope implements ScopeInterface
 {
+    protected $clientClass;
+
+    /**
+     * @var EntityManager
+     */
     protected $em;
+
 
     /**
      * @var ScopeManagerInterface
      */
     protected $sm;
 
-    public function __construct(EntityManager $entityManager, ScopeManagerInterface $scopeManager)
+    public function __construct($clientClass, EntityManager $entityManager, ScopeManagerInterface $scopeManager)
     {
-        $this->em = $entityManager;
-        $this->sm = $scopeManager;
+        $this->clientClass = $clientClass;
+        $this->em          = $entityManager;
+        $this->sm          = $scopeManager;
     }
 
     /**
@@ -37,7 +44,7 @@ class Scope implements ScopeInterface
         $scopes = explode(' ', $scope);
         if ($client_id) {
             // Get Client
-            $client = $this->em->getRepository('OAuth2ServerBundle:Client')->find($client_id);
+            $client = $this->em->getRepository($this->clientClass)->find($client_id);
 
             if (!$client) {
                 return false;

@@ -33,7 +33,7 @@ class AuthorizationCode
     private $scope;
 
     /**
-     * @var \OAuth2\ServerBundle\Entity\Client
+     * @var \OAuth2\ServerBundle\Model\ClientInterface
      */
     private $client;
 
@@ -162,10 +162,10 @@ class AuthorizationCode
     /**
      * Set client
      *
-     * @param  \OAuth2\ServerBundle\Entity\Client $client
+     * @param  \OAuth2\ServerBundle\Model\ClientInterface $client
      * @return AuthorizationCode
      */
-    public function setClient(\OAuth2\ServerBundle\Entity\Client $client = null)
+    public function setClient(\OAuth2\ServerBundle\Model\ClientInterface $client = null)
     {
         $this->client = $client;
 
@@ -175,7 +175,7 @@ class AuthorizationCode
     /**
      * Get client
      *
-     * @return \OAuth2\ServerBundle\Entity\Client
+     * @return \OAuth2\ServerBundle\Model\ClientInterface
      */
     public function getClient()
     {

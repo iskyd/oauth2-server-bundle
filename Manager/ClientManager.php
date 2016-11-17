@@ -7,6 +7,11 @@ use OAuth2\ServerBundle\Exception\ScopeNotFoundException;
 
 class ClientManager
 {
+    protected $class;
+
+    /**
+     * @var EntityManager
+     */
     protected $em;
 
     /**
@@ -14,10 +19,11 @@ class ClientManager
      */
     protected $sm;
 
-    public function __construct(EntityManager $entityManager, ScopeManagerInterface $scopeManager)
+    public function __construct($class, EntityManager $entityManager, ScopeManagerInterface $scopeManager)
     {
-        $this->em = $entityManager;
-        $this->sm = $scopeManager;
+        $this->class = $class;
+        $this->em    = $entityManager;
+        $this->sm    = $scopeManager;
     }
 
     /**
@@ -35,7 +41,7 @@ class ClientManager
      */
     public function createClient($identifier, array $redirect_uris = array(), array $grant_types = array(), array $scopes = array())
     {
-        $client = new \OAuth2\ServerBundle\Entity\Client();
+        $client = new $this->class;
         $client->setClientId($identifier);
         $client->setClientSecret($this->generateSecret());
         $client->setRedirectUri($redirect_uris);

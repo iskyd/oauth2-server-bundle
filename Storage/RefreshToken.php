@@ -7,11 +7,17 @@ use Doctrine\ORM\EntityManager;
 
 class RefreshToken implements RefreshTokenInterface
 {
+    protected $clientClass;
+
+    /**
+     * @var EntityManager
+     */
     protected $em;
 
-    public function __construct(EntityManager $EntityManager)
+    public function __construct($clientClass, EntityManager $EntityManager)
     {
-        $this->em = $EntityManager;
+        $this->clientClass = $clientClass;
+        $this->em          = $EntityManager;
     }
 
     /**
@@ -84,7 +90,7 @@ class RefreshToken implements RefreshTokenInterface
     public function setRefreshToken($refresh_token, $client_id, $user_id, $expires, $scope = null)
     {
         // Get Client Entity
-        $client = $this->em->getRepository('OAuth2ServerBundle:Client')->find($client_id);
+        $client = $this->em->getRepository($this->clientClass)->find($client_id);
         if (!$client) {
             return null;
         }

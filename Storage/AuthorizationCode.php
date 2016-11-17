@@ -4,15 +4,23 @@ namespace OAuth2\ServerBundle\Storage;
 
 use OAuth2\Storage\AuthorizationCodeInterface;
 use Doctrine\ORM\EntityManager;
-use OAuth2\ServerBundle\Entity\Client;
 
 class AuthorizationCode implements AuthorizationCodeInterface
 {
+    protected $class;
+
+    protected $clientClass;
+
+    /**
+     * @var EntityManager
+     */
     protected $em;
 
-    public function __construct(EntityManager $EntityManager)
+    public function __construct($class, $clientClass, EntityManager $EntityManager)
     {
-        $this->em = $EntityManager;
+        $this->class       = $class;
+        $this->clientClass = $clientClass;
+        $this->em          = $EntityManager;
     }
 
     /**
@@ -44,7 +52,7 @@ class AuthorizationCode implements AuthorizationCodeInterface
     public function getAuthorizationCode($code)
     {
         // Get Code
-        $code = $this->em->getRepository('OAuth2ServerBundle:AuthorizationCode')->find($code);
+        $code = $this->em->getRepository($this->class)->find($code);
 
         if (!$code) {
             return null;
@@ -87,11 +95,11 @@ class AuthorizationCode implements AuthorizationCodeInterface
      */
     public function setAuthorizationCode($code, $client_id, $user_id, $redirect_uri, $expires, $scope = null)
     {
-        $client = $this->em->getRepository('OAuth2ServerBundle:Client')->find($client_id);
+        $client = $this->em->getRepository($this->clientClass)->find($client_id);
 
         if (!$client) throw new \Exception('Unknown client identifier');
 
-        $authorizationCode = new \OAuth2\ServerBundle\Entity\AuthorizationCode();
+        $authorizationCode = new $this->class;
         $authorizationCode->setCode($code);
         $authorizationCode->setClient($client);
         $authorizationCode->setUserId($user_id);
@@ -117,7 +125,7 @@ class AuthorizationCode implements AuthorizationCodeInterface
      */
     public function expireAuthorizationCode($code)
     {
-        $code = $this->em->getRepository('OAuth2ServerBundle:AuthorizationCode')->find($code);
+        $code = $this->em->getRepository($this->class)->find($code);
         $this->em->remove($code);
         $this->em->flush();
     }

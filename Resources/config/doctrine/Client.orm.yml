@@ -1,6 +1,5 @@
 OAuth2\ServerBundle\Entity\Client:
-    type: entity
-    table: oauth_client
+    type: mappedSuperclass
     id:
         client_id:
             type:       string

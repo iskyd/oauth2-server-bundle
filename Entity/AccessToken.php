@@ -25,7 +25,7 @@ class AccessToken
     private $scope;
 
     /**
-     * @var \OAuth2\ServerBundle\Entity\Client
+     * @var \OAuth2\ServerBundle\Model\ClientInterface
      */
     private $client;
 
@@ -131,10 +131,10 @@ class AccessToken
     /**
      * Set client
      *
-     * @param  \OAuth2\ServerBundle\Entity\Client $client
+     * @param  \OAuth2\ServerBundle\Model\ClientInterface $client
      * @return AccessToken
      */
-    public function setClient(\OAuth2\ServerBundle\Entity\Client $client = null)
+    public function setClient(\OAuth2\ServerBundle\Model\ClientInterface $client = null)
     {
         $this->client = $client;
 
@@ -144,7 +144,7 @@ class AccessToken
     /**
      * Get client
      *
-     * @return \OAuth2\ServerBundle\Entity\Client
+     * @return \OAuth2\ServerBundle\Model\ClientInterface
      */
     public function getClient()
     {

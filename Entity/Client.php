@@ -2,10 +2,12 @@
 
 namespace OAuth2\ServerBundle\Entity;
 
+use OAuth2\ServerBundle\Model\ClientInterface;
+
 /**
  * Client
  */
-class Client
+class Client implements ClientInterface
 {
     /**
      * @var string
